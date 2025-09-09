@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>지구 한 바퀴 걷기 계산기</title>
+<style>
+  body {
+    font-family: sans-serif;
+    font-size: 2.2em;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #002080;
+  }
+
+  h1 {
+    margin-top: 200px;
+  }
+.subtitle {
+  font-size: 18px;        
+  font-weight: normal;    
+  color: #840032;            
+   margin-top: -10px;    
+  margin-bottom: 30px;    
+       
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 40px;
+  }
+
+  .earth {
+    width: 1000px;
+    height: 1000px;
+    border-radius:
+    overflow: hidden;
+    
+  }
+
+  .earth img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .controls {
+    text-align: left;
+    font-size: 15px;
+
+ 
+
+  input {
+    font-size: 15px;
+    width: 60px;
+    text-align: center;
+  }
+
+  button {
+    display: block;
+    margin-top: 20px;
+    font-size: 15px;
+    padding: 8px 16px;
+    background: #002080;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  #result {
+    margin-top: 50px;
+    
+    color: #840032;
+  font-size: 15px;    
+ 
+  line-height: 1.6;    
+  }
+</style>
+</head>
+<body>
+
+<h1>지구 한 바퀴 걷기 계산기</h1>
+<h2 class="subtitle">하루 걷는 시간으로 지구 한 바퀴에 걸리는 기간을 알아보세요!</h2>
+
+<div class="container">
+  <div class="earth">
+    
+    <img src="earth.gif" alt="지구 GIF">
+  </div>
+  
+  <div class="controls">
+    <p>하루에 몇 시간씩 걸을지 입력해 보세요<br>(시속 5km 기준):</p>
+    하루 걷는 시간: 
+    <input type="number" id="hours" min="1" value="2"> 시간
+    <button onclick="calc()">계산하기</button>
+    <div id="result"></div>
+  </div>
+</div>
+
+<script>
+function calc() {
+  const earth = 40075; // 지구 둘레 (km)
+  const speed = 5;     // 걷는 속도 (km/h)
+  let hours = parseFloat(document.getElementById("hours").value);
+
+  if (hours <= 0 || isNaN(hours)) {
+    document.getElementById("result").innerHTML = "⛔ 올바른 시간을 입력하세요!";
+    return;
+  }
+
+  let daily = hours * speed;        
+  let days = earth / daily;         
+  
+  let years = Math.floor(days / 365);
+  let months = Math.floor((days % 365) / 30);
+  let restDays = Math.round(days % 30);
+
+  document.getElementById("result").innerHTML = 
+    " = 하루 " + hours + "시간 걷기 → <br>" +
+    "약 " + Math.round(days).toLocaleString() + "일 (≈ " +
+    (years ? years + "년 " : "") +
+    (months ? months + "개월 " : "") +
+    restDays + "일)";
+}
+</script>
+
+</body>
+</html>
